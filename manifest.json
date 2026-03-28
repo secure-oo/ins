@@ -1,0 +1,12 @@
+{
+  "display_name": "iCost · 我的账本",
+  "loading_order": 10,
+  "requires": [],
+  "optional": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "pearl",
+  "version": "4.0.0",
+  "homePage": "",
+  "auto_update": true
+}
