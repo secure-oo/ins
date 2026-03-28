@@ -1,0 +1,305 @@
+/* Pearl Bay - Twitter-style UI */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+#pearl-bay-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(29,155,240,0.12);
+  border: 1px solid rgba(29,155,240,0.3);
+  color: #1d9bf0;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: background 0.2s;
+}
+#pearl-bay-btn:hover { background: rgba(29,155,240,0.2); }
+
+#pearl-bay-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9998;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 40px;
+}
+#pearl-bay-overlay.open { display: flex; }
+
+#pearl-bay-modal {
+  width: 620px;
+  max-width: 95vw;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans SC', -apple-system, sans-serif;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+
+/* Header */
+.pb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eff3f4;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.pb-header-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #0f1419;
+}
+.pb-close {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: none; background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #536471;
+  font-size: 18px;
+  transition: background 0.15s;
+}
+.pb-close:hover { background: #f7f9f9; }
+
+/* Tabs */
+.pb-tabs {
+  display: flex;
+  border-bottom: 1px solid #eff3f4;
+}
+.pb-tab {
+  flex: 1;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #536471;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  transition: background 0.15s;
+  position: relative;
+}
+.pb-tab:hover { background: rgba(15,20,25,0.03); }
+.pb-tab.active {
+  color: #0f1419;
+  border-bottom: 2px solid #1d9bf0;
+}
+
+/* Compose */
+.pb-compose {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eff3f4;
+  display: flex;
+  gap: 12px;
+}
+.pb-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pb-compose-right { flex: 1; }
+.pb-persona-row {
+  display: flex; gap: 6px; margin-bottom: 8px;
+}
+.pb-persona-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  border: 1px solid #cfd9de;
+  background: none;
+  color: #536471;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.pb-persona-pill.active-daddy {
+  background: #e8f5fd; border-color: #1d9bf0; color: #1d9bf0; font-weight: 500;
+}
+.pb-persona-pill.active-pearl {
+  background: #fde8ef; border-color: #f91880; color: #f91880; font-weight: 500;
+}
+.pb-textarea {
+  width: 100%;
+  border: none; outline: none; resize: none;
+  font-size: 19px;
+  color: #0f1419;
+  font-family: 'Noto Sans SC', sans-serif;
+  line-height: 1.6;
+  background: transparent;
+  min-height: 60px;
+  placeholder-color: #536471;
+}
+.pb-textarea::placeholder { color: #536471; }
+.pb-compose-footer {
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid #eff3f4;
+  margin-top: 8px;
+  gap: 10px;
+}
+.pb-char-count { font-size: 13px; color: #536471; }
+.pb-post-btn {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  background: #1d9bf0;
+  color: #fff;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: background 0.15s;
+}
+.pb-post-btn:hover { background: #1a8cd8; }
+.pb-post-btn:disabled { background: #8ec9f5; cursor: default; }
+.pb-post-btn.pearl-mode { background: #f91880; }
+.pb-post-btn.pearl-mode:hover { background: #e0166f; }
+.pb-post-btn.pearl-mode:disabled { background: #f9a8c9; }
+
+/* Timeline */
+.pb-timeline {
+  overflow-y: auto;
+  flex: 1;
+}
+.pb-timeline::-webkit-scrollbar { width: 4px; }
+.pb-timeline::-webkit-scrollbar-thumb { background: #cfd9de; border-radius: 2px; }
+
+/* Tweet card */
+.pb-tweet {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eff3f4;
+  display: flex;
+  gap: 12px;
+  cursor: default;
+  transition: background 0.15s;
+}
+.pb-tweet:hover { background: #f7f9f9; }
+.pb-tweet-right { flex: 1; min-width: 0; }
+.pb-tweet-header {
+  display: flex; align-items: center; gap: 4px;
+  margin-bottom: 2px; flex-wrap: wrap;
+}
+.pb-tweet-name {
+  font-weight: 700; font-size: 15px; color: #0f1419;
+}
+.pb-tweet-handle {
+  font-size: 14px; color: #536471;
+}
+.pb-tweet-dot { color: #536471; font-size: 14px; }
+.pb-tweet-time { font-size: 14px; color: #536471; }
+.pb-tweet-content {
+  font-size: 15px; line-height: 1.65;
+  color: #0f1419;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Action bar */
+.pb-actions {
+  display: flex; gap: 0; margin: 0 -8px;
+}
+.pb-action-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 8px;
+  border-radius: 20px;
+  border: none; background: none;
+  color: #536471; font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.pb-action-btn:hover.comment-btn { color: #1d9bf0; background: rgba(29,155,240,0.1); }
+.pb-action-btn:hover.like-btn { color: #f91880; background: rgba(249,24,128,0.1); }
+.pb-action-btn:hover.delete-btn { color: #f4212e; background: rgba(244,33,46,0.1); }
+.pb-action-btn.liked { color: #f91880; }
+.pb-action-icon { font-size: 16px; line-height: 1; }
+
+/* Comment thread */
+.pb-comments {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eff3f4;
+}
+.pb-comment {
+  display: flex; gap: 8px; margin-bottom: 10px;
+}
+.pb-comment-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.pb-comment-right { flex: 1; }
+.pb-comment-header { display: flex; gap: 6px; align-items: baseline; margin-bottom: 2px; }
+.pb-comment-name { font-weight: 700; font-size: 13px; color: #0f1419; }
+.pb-comment-time { font-size: 12px; color: #536471; }
+.pb-comment-text { font-size: 14px; color: #0f1419; line-height: 1.55; }
+
+/* Reply box */
+.pb-reply-box {
+  margin-top: 8px;
+  display: flex; gap: 8px;
+}
+.pb-reply-persona-row { display: flex; gap: 4px; margin-bottom: 6px; }
+.pb-reply-pill {
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; border: 1px solid #cfd9de;
+  background: none; color: #536471; cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: all 0.15s;
+}
+.pb-reply-pill.active-daddy { background: #e8f5fd; border-color: #1d9bf0; color: #1d9bf0; }
+.pb-reply-pill.active-pearl { background: #fde8ef; border-color: #f91880; color: #f91880; }
+.pb-reply-input {
+  flex: 1; border: 1px solid #cfd9de; border-radius: 20px;
+  padding: 8px 14px; font-size: 14px;
+  font-family: 'Noto Sans SC', sans-serif;
+  outline: none; color: #0f1419; resize: none;
+  background: #f7f9f9;
+  transition: border-color 0.15s;
+}
+.pb-reply-input:focus { border-color: #1d9bf0; background: #fff; }
+.pb-reply-submit {
+  padding: 8px 16px; border-radius: 20px;
+  font-size: 13px; font-weight: 700;
+  border: none; background: #1d9bf0; color: #fff;
+  cursor: pointer; align-self: flex-end;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: background 0.15s; white-space: nowrap;
+}
+.pb-reply-submit:hover { background: #1a8cd8; }
+.pb-reply-submit:disabled { background: #8ec9f5; cursor: default; }
+.pb-reply-submit.pearl-mode { background: #f91880; }
+.pb-reply-submit.pearl-mode:hover { background: #e0166f; }
+
+/* Empty state */
+.pb-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #536471;
+  font-size: 15px;
+}
+.pb-empty-title { font-size: 24px; font-weight: 800; color: #0f1419; margin-bottom: 8px; }
+
+/* Fade in */
+@keyframes pb-slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.pb-tweet-new { animation: pb-slide-in 0.25s ease; }
