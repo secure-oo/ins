@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
+
+/* ── Trigger button ── */
+#pb-dm-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 9000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#pb-dm-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+
+/* ── Overlay ── */
+#pb-dm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#pb-dm-overlay.open { display: flex; }
+
+/* ── Modal shell ── */
+#pb-dm-modal {
+  width: 420px;
+  max-width: 96vw;
+  height: 720px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.35);
+  position: relative;
+}
+
+/* ── Top bar (ins style) ── */
+#pb-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #dbdbdb;
+  background: #fff;
+  flex-shrink: 0;
+}
+#pb-topbar-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f09433, #bc1888);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+#pb-topbar-info { flex: 1; min-width: 0; }
+#pb-topbar-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#pb-topbar-sub {
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-top: 1px;
+}
+.pb-icon-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none; background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  color: #000;
+  transition: background 0.15s;
+}
+.pb-icon-btn:hover { background: #f2f2f2; }
+
+/* ── Profile card (middle, ins style) ── */
+#pb-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid #efefef;
+  flex-shrink: 0;
+}
+#pb-profile-avatar-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+#pb-profile-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #bc1888;
+}
+#pb-profile-avatar:hover { opacity: 0.85; }
+#pb-profile-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 2px 8px;
+  transition: border-color 0.15s;
+}
+#pb-profile-name:hover { border-color: #dbdbdb; background: #fafafa; }
+#pb-profile-name[contenteditable="true"] { border-color: #3797f0; background: #fff; outline: none; }
+#pb-profile-bio {
+  font-size: 13px;
+  color: #8e8e8e;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 2px 8px;
+  max-width: 280px;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+#pb-profile-bio:hover { border-color: #dbdbdb; background: #fafafa; }
+#pb-profile-bio[contenteditable="true"] { border-color: #3797f0; background: #fff; outline: none; color: #000; }
+.pb-edit-hint {
+  font-size: 11px;
+  color: #c7c7c7;
+  margin-top: 6px;
+}
+
+/* ── Message list ── */
+#pb-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #fff;
+}
+#pb-messages::-webkit-scrollbar { width: 4px; }
+#pb-messages::-webkit-scrollbar-thumb { background: #dbdbdb; border-radius: 2px; }
+
+/* bubble groups */
+.pb-msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.pb-msg-row.sent { flex-direction: row-reverse; }
+.pb-msg-row.received { flex-direction: row; }
+
+.pb-bubble-avatar {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+.pb-bubble-avatar.hidden { visibility: hidden; }
+
+/* bubble */
+.pb-bubble {
+  max-width: 68%;
+  padding: 10px 14px;
+  border-radius: 22px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-wrap;
+  position: relative;
+  cursor: default;
+}
+.pb-bubble.sent {
+  background: #3797f0;
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+.pb-bubble.received {
+  background: #efefef;
+  color: #000;
+  border-bottom-left-radius: 6px;
+}
+/* tail tweaks for consecutive */
+.pb-bubble.sent.first { border-top-right-radius: 22px; }
+.pb-bubble.sent.last  { border-bottom-right-radius: 6px; }
+.pb-bubble.sent.middle { border-radius: 22px 6px 6px 22px; }
+.pb-bubble.sent.solo  { border-radius: 22px; }
+
+.pb-bubble.received.first { border-top-left-radius: 22px; }
+.pb-bubble.received.last  { border-bottom-left-radius: 6px; }
+.pb-bubble.received.middle { border-radius: 6px 22px 22px 6px; }
+.pb-bubble.received.solo  { border-radius: 22px; }
+
+.pb-time-label {
+  text-align: center;
+  font-size: 11px;
+  color: #8e8e8e;
+  margin: 10px 0 4px;
+}
+
+/* long-press delete hint */
+.pb-bubble:hover::after {
+  content: '×';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #ed4956;
+  color: #fff;
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  line-height: 18px;
+  text-align: center;
+}
+.pb-bubble.received:hover::after { right: auto; left: -8px; }
+
+/* ── Typing indicator ── */
+.pb-typing {
+  display: none;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 0 12px 8px;
+}
+.pb-typing.active { display: flex; }
+.pb-typing-bubble {
+  background: #efefef;
+  border-radius: 22px;
+  padding: 10px 14px;
+  display: flex; gap: 4px; align-items: center;
+}
+.pb-typing-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #8e8e8e;
+  animation: pb-bounce 1.2s infinite;
+}
+.pb-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.pb-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pb-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* ── Input bar ── */
+#pb-inputbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 10px 14px;
+  border-top: 1px solid #dbdbdb;
+  background: #fff;
+  flex-shrink: 0;
+}
+#pb-persona-toggle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  background: #efefef;
+}
+#pb-persona-toggle:hover { transform: scale(1.1); }
+#pb-input-wrap {
+  flex: 1;
+  border: 1px solid #dbdbdb;
+  border-radius: 22px;
+  padding: 8px 14px;
+  display: flex; align-items: flex-end; gap: 6px;
+  transition: border-color 0.15s;
+  background: #fff;
+}
+#pb-input-wrap:focus-within { border-color: #8e8e8e; }
+#pb-textarea {
+  flex: 1;
+  border: none; outline: none; resize: none;
+  font-size: 14px;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: #000;
+  background: transparent;
+  max-height: 100px;
+  line-height: 1.5;
+}
+#pb-textarea::placeholder { color: #8e8e8e; }
+#pb-ai-btn {
+  font-size: 16px;
+  background: none; border: none; cursor: pointer;
+  color: #8e8e8e; padding: 0;
+  transition: color 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+#pb-ai-btn:hover { color: #3797f0; }
+#pb-send-btn {
+  border: none; background: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: #3797f0;
+  transition: transform 0.15s, opacity 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+  opacity: 0.4;
+  line-height: 1;
+}
+#pb-send-btn.active { opacity: 1; }
+#pb-send-btn:hover.active { transform: scale(1.15); }
+
+/* ── Settings panel ── */
+#pb-settings {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  z-index: 10;
+  display: none;
+  flex-direction: column;
+}
+#pb-settings.open { display: flex; }
+#pb-settings-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #dbdbdb;
+  font-weight: 600; font-size: 16px;
+}
+#pb-settings-body {
+  padding: 20px 16px;
+  display: flex; flex-direction: column; gap: 16px;
+  overflow-y: auto;
+}
+.pb-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8e8e8e;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pb-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Noto Sans SC', sans-serif;
+  outline: none;
+  color: #000;
+  transition: border-color 0.15s;
+}
+.pb-field input:focus { border-color: #3797f0; }
+.pb-field input::placeholder { color: #c7c7c7; }
+.pb-save-btn {
+  padding: 10px;
+  border-radius: 10px;
+  background: #3797f0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: background 0.15s;
+}
+.pb-save-btn:hover { background: #2d86df; }
+.pb-section-title {
+  font-size: 13px; font-weight: 600; color: #000; margin-bottom: 4px;
+}
+.pb-section-desc {
+  font-size: 12px; color: #8e8e8e; line-height: 1.5; margin-bottom: 12px;
+}
+.pb-danger-btn {
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  color: #ed4956;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #ed4956;
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+@keyframes pb-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.pb-msg-new { animation: pb-fade-in 0.2s ease; }
